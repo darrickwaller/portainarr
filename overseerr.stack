@@ -1,0 +1,21 @@
+version: "1.0"
+services:
+  overseerr:
+    image: linuxserver/overseerr
+    container_name: Overseerr
+    hostname: overseerr
+    network_mode: host
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:unconfined
+    healthcheck:
+     test: curl -f http://localhost:5055/ || exit 1
+    volumes:
+      - overseerr_config:/config
+    environment:
+      TZ: America/Chicago
+      PUID: 1000
+      PGID: 1000
+    restart: on-failure:5
+volumes:
+  overseerr_config:
