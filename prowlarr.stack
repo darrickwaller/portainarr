@@ -1,0 +1,19 @@
+version: "1.0"
+services:
+
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    hostname: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - prowlarr_config:/config
+    ports:
+      - 9696:9696
+    restart: always
+
+volumes:
+  prowlarr_config:
