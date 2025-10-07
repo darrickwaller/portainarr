@@ -1,0 +1,22 @@
+version: '1.0'
+services:
+ radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    healthcheck:
+     test: curl -f http://localhost:7878/ || exit 1
+    restart: on-failure:5
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /export-sas/samba/media:/data
+      - radarr_config:/config
+    environment:
+      TZ: America/Chicago
+      PGID: 1000
+      PUID: 1000
+    ports:
+      - 7878:7878
+
+volumes:
+  radarr_config:
